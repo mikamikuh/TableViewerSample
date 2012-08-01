@@ -6,7 +6,10 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using TemplateEngine;
+using PAG.Accessor;
 using PAG.Generator;
+using UnityTableViewer.Viewer;
+using UnityTableViewer.Provider;
 
 public class SampleWindow : EditorWindow {
 	private Boolean flag = false;
@@ -40,8 +43,12 @@ public class SampleWindow : EditorWindow {
 			variables["sample2"] = "string";
 			variables["sample3"] = "float";
 			
-			DataAccessorGenerator generator = new DataAccessorGenerator("Test.Generate", "NewBehaviourScript", prefabPath, variables);
-			generator.execute();
+			DirectoryInfo info = new DirectoryInfo("Assets/SourcePrefab/");
+			foreach(FileInfo f in info.GetFiles()) {
+				string name = f.Name.Split('.')[0];
+				DataAccessorGenerator generator = new DataAccessorGenerator("Test.Generate", name, "TestClassScript", prefabPath, variables);
+				generator.execute();
+			}
 		}
 		
 		if(GUILayout.Button ("Generate DataScript")) {
