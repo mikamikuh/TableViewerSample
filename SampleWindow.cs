@@ -36,7 +36,7 @@ public class SampleWindow : EditorWindow {
 		}
 		
 		if(GUILayout.Button ("Generate DataAccessor")) {
-			string prefabPath = "Assets/SourcePrefab/Cube1";
+			string prefabFolder = "Assets/SourcePrefab/";
 			
 			IDictionary<string, string> variables = new Dictionary<string, string>();
 			variables["sample1"] = "int";
@@ -46,7 +46,7 @@ public class SampleWindow : EditorWindow {
 			DirectoryInfo info = new DirectoryInfo("Assets/SourcePrefab/");
 			foreach(FileInfo f in info.GetFiles()) {
 				string name = f.Name.Split('.')[0];
-				DataAccessorGenerator generator = new DataAccessorGenerator("Test.Generate", name, "TestClassScript", prefabPath, variables);
+				DataAccessorGenerator generator = new DataAccessorGenerator("Test.Generate", name, "TestClassScript", prefabFolder + name, variables);
 				generator.execute();
 			}
 		}
@@ -57,7 +57,7 @@ public class SampleWindow : EditorWindow {
 			variables["sample2"] = "string";
 			variables["sample3"] = "float";
 			
-			DataScriptGenerator generator = new DataScriptGenerator("Test.Generate", "TestClass", variables);
+			DataScriptGenerator generator = new DataScriptGenerator("TestClass", variables);
 			generator.execute();
 		}
 		
