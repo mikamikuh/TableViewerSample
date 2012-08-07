@@ -31,7 +31,7 @@ public class SampleWindow : EditorWindow {
 			//UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath("Assets/SourcePrefab/Cube", typeof(GameObject));
 			//Debug.Log (obj.name);
 			//IList<UnityEngine.Object> prefabs = new List<UnityEngine.Object>(objects);
-			ICodeGenerator generator = new AccessorManagerGenerator("Test.Generate", "Sample", prefabNames);
+			ICodeGenerator generator = new AccessorManagerGenerator("Sample", prefabNames);
 			generator.execute();
 		}
 		
@@ -46,7 +46,7 @@ public class SampleWindow : EditorWindow {
 			DirectoryInfo info = new DirectoryInfo("Assets/SourcePrefab/");
 			foreach(FileInfo f in info.GetFiles()) {
 				string name = f.Name.Split('.')[0];
-				DataAccessorGenerator generator = new DataAccessorGenerator("Test.Generate", name, "TestClassScript", prefabFolder + name, variables);
+				DataAccessorGenerator generator = new DataAccessorGenerator("Test.Generate", name, variables);
 				generator.execute();
 			}
 		}
@@ -57,7 +57,7 @@ public class SampleWindow : EditorWindow {
 			variables["sample2"] = "string";
 			variables["sample3"] = "float";
 			
-			DataScriptGenerator generator = new DataScriptGenerator("TestClass", variables);
+			DataScriptGenerator generator = new DataScriptGenerator("TestClass", "", variables);
 			generator.execute();
 		}
 		
@@ -69,9 +69,11 @@ public class SampleWindow : EditorWindow {
 		
 		string aaa = GUILayout.TextField("TEXT");
 		Debug.Log (aaa);
+		
+		GUILayout.Label("Label");
     }
 	
-	void Update() {
+	void Update() {		
 		if(!EditorApplication.isCompiling && flag) {
 			GameObject gameObject = new GameObject();
 			Component comp = gameObject.AddComponent("GenerateClassName");
